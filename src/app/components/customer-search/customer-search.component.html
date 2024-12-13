@@ -1,12 +1,12 @@
-<form [formGroup]="searchForm" class="search-form">
+<div class="search-container" [formGroup]="searchForm">
   <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search customers</mat-label>
     <mat-icon matPrefix>search</mat-icon>
     <input matInput
            formControlName="searchTerm"
-           placeholder="Search customers"
+           placeholder="Search by name, email or phone"
            type="text"
            autocomplete="off">
-    <mat-hint>Start typing to search across all fields</mat-hint>
     <button mat-icon-button 
             matSuffix 
             *ngIf="searchForm.get('searchTerm')?.value"
@@ -14,4 +14,4 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-</form> 
+</div> 

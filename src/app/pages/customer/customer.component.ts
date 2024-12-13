@@ -17,7 +17,7 @@ import { LoadingService } from '../../services/loading.service';
   styleUrls: ['./customer.component.css'],
   standalone: false,
 })
-export class CustomerComponent implements OnInit {
+export class CustomerComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'company', 'actions'];
   dataSource: MatTableDataSource<ICustomer>;
   isLoading = true;
@@ -40,13 +40,25 @@ export class CustomerComponent implements OnInit {
     this.loadCustomers();
   }
 
+  ngAfterViewInit(): void {
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+      this.paginator.pageSize = 10;
+    }
+  }
+
   loadCustomers(): void {
     this.loadingService.show();
     this.customerService.getCustomers().subscribe({
       next: (customers) => {
         this.dataSource.data = customers;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        if (this.paginator) {
+          this.dataSource.paginator = this.paginator;
+          this.paginator.pageSize = 10;
+        }
+        if (this.sort) {
+          this.dataSource.sort = this.sort;
+        }
         this.loadingService.hide();
       },
       error: (error) => {
@@ -69,8 +81,8 @@ export class CustomerComponent implements OnInit {
     this.dataSource.filterPredicate = (data: ICustomer, filter: string) => {
       const searchStr = JSON.parse(filter).searchTerm.toLowerCase();
       return data.name.toLowerCase().includes(searchStr) ||
-             data.email.toLowerCase().includes(searchStr) ||
-             data.phone.toLowerCase().includes(searchStr);
+        data.email.toLowerCase().includes(searchStr) ||
+        data.phone.toLowerCase().includes(searchStr);
     };
     this.dataSource.filter = JSON.stringify(criteria);
   }

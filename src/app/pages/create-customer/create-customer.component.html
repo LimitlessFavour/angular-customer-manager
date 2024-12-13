@@ -8,10 +8,11 @@
 
   <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="customer-form">
     <!-- Personal Information -->
-    <mat-card @fadeSlideIn class="form-section">
-      <mat-card-header>
-        <mat-card-title>Personal Information</mat-card-title>
-      </mat-card-header>
+    <div class="form-section">
+      <h2 class="section-title">
+        <mat-icon>person</mat-icon>
+        Personal Information
+      </h2>
       <mat-card-content formGroupName="personal">
         <div class="form-row">
           <mat-form-field appearance="outline">
@@ -57,13 +58,14 @@
           </mat-error>
         </mat-form-field>
       </mat-card-content>
-    </mat-card>
+    </div>
 
     <!-- Company Information -->
-    <mat-card @fadeSlideIn class="form-section">
-      <mat-card-header>
-        <mat-card-title>Company Information</mat-card-title>
-      </mat-card-header>
+    <div class="form-section">
+      <h2 class="section-title">
+        <mat-icon>business</mat-icon>
+        Company Information
+      </h2>
       <mat-card-content formGroupName="company">
         <div class="form-row">
           <mat-form-field appearance="outline">
@@ -87,13 +89,14 @@
           </mat-form-field>
         </div>
       </mat-card-content>
-    </mat-card>
+    </div>
 
     <!-- Address Information -->
-    <mat-card @fadeSlideIn class="form-section">
-      <mat-card-header>
-        <mat-card-title>Address Information</mat-card-title>
-      </mat-card-header>
+    <div class="form-section">
+      <h2 class="section-title">
+        <mat-icon>location_on</mat-icon>
+        Address Information
+      </h2>
       <mat-card-content formGroupName="address">
         <div class="form-row">
           <mat-form-field appearance="outline">
@@ -140,7 +143,7 @@
           </mat-form-field>
         </div>
       </mat-card-content>
-    </mat-card>
+    </div>
 
     <div class="form-actions">
       <button mat-flat-button color="primary" type="submit" [disabled]="isSubmitting">
