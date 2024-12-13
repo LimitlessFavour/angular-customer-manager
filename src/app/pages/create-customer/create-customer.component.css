@@ -1,9 +1,19 @@
 .create-customer-container {
   padding: var(--content-padding);
-  max-width: var(--container-max-width);
+  max-width: 800px;
   margin: 0 auto;
-  overflow-y: auto;
-  height: calc(100vh - 64px);
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .header {
@@ -11,29 +21,61 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 h1 {
   color: var(--primary-green);
   margin: 0;
   font-size: 1.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.customer-form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--primary-green);
+  transition: width 0.3s ease;
+}
+
+h1:hover::after {
+  width: 100%;
 }
 
 .form-section {
-  background: var(--dark-background);
+  background: var(--darker-background);
   border: 1px solid var(--border-green);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.5s ease-out;
+  animation-delay: calc(var(--section-index) * 100ms);
 }
 
 .form-section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(105, 240, 174, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(105, 240, 174, 0.15);
+}
+
+.section-title {
+  color: var(--primary-green);
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title mat-icon {
+  font-size: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .form-row {
@@ -43,81 +85,60 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.full-width {
-  width: 100%;
-}
-
 .form-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 2rem;
-  padding: 1rem;
   position: sticky;
   bottom: 0;
   background: var(--darker-background);
+  padding: 1rem;
   border-top: 1px solid var(--border-green);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  z-index: 10;
+  animation: slideInFromBottom 0.3s ease-out;
 }
 
-/* Material overrides */
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: var(--border-green);
-}
-
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: var(--primary-green);
-}
-
-::ng-deep .mat-card-header-text {
-  margin: 0 !important;
-}
-
-.mat-mdc-card-title {
-  color: var(--primary-green);
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-/* Add these to the existing styles */
-.mat-mdc-card {
-  margin-bottom: 1rem;
-  animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
+@keyframes slideInFromBottom {
   from {
-    opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(100%);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
 
-.mat-mdc-form-field {
-  margin-bottom: 1rem;
-}
-
-button[type="submit"] {
+.submit-button {
   min-width: 150px;
   height: 48px;
+  position: relative;
+  overflow: hidden;
 }
 
-button[type="submit"] mat-icon {
-  margin-right: 8px;
+.submit-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
 }
 
-.form-actions button {
-  transition: all 0.3s ease;
+.submit-button:hover::after {
+  width: 300px;
+  height: 300px;
 }
 
-.form-actions button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(105, 240, 174, 0.2);
+.cancel-button {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 
-.mat-mdc-card-content {
-  padding: 16px;
+.cancel-button:hover {
+  opacity: 1;
 }
 
 /* Responsive adjustments */
@@ -127,10 +148,11 @@ button[type="submit"] mat-icon {
   }
   
   .form-actions {
-    padding: 1rem;
+    flex-direction: column;
   }
   
-  button[type="submit"] {
+  .submit-button,
+  .cancel-button {
     width: 100%;
   }
 } 
