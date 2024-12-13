@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap, finalize } from 'rxjs/operators';
 import { SearchCriteria } from '../../interfaces/criteria';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-customer-search',
@@ -19,7 +20,10 @@ export class CustomerSearchComponent {
     { value: 'phone', label: 'Phone' }
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private loadingService: LoadingService
+  ) {
     this.searchForm = this.fb.group({
       searchTerm: [''],
       searchBy: ['name']
@@ -27,7 +31,9 @@ export class CustomerSearchComponent {
 
     this.searchForm.valueChanges.pipe(
       debounceTime(300),
-      distinctUntilChanged()
+      distinctUntilChanged(),
+      tap(() => this.loadingService.show()),
+      finalize(() => this.loadingService.hide())
     ).subscribe(value => {
       if (value.searchTerm) {
         this.search.emit(value);

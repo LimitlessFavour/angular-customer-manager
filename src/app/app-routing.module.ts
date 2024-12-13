@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'customers', pathMatch: 'full' },
@@ -18,7 +19,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [
+        RouterModule.forRoot(routes),
+        LoadingIndicatorComponent
+    ],
     exports: [RouterModule]
 })
 export class AppRoutingModule { } 

@@ -63,12 +63,108 @@ html, body {
   width: 100%;
 }
 
-.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
-  color: var(--border-green) !important;
+.mat-mdc-text-field-wrapper {
+  background: var(--darker-background) !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--border-green) !important;
 }
 
-.mat-mdc-form-field-appearance-outline.mat-focused .mat-mdc-form-field-outline-thick {
+.mat-mdc-form-field-flex {
+  background: transparent !important;
+  padding: 0 12px !important;
+  height: 56px !important;
+}
+
+.mat-mdc-form-field-infix {
+  padding: 16px 0 !important;
+  color: var(--text-white) !important;
+}
+
+.mat-mdc-form-field-label {
+  color: var(--text-muted) !important;
+  margin-top: -0.5em !important;
+}
+
+.mat-focused .mat-mdc-form-field-label {
   color: var(--primary-green) !important;
+}
+
+/* Action Icons Styling */
+.action-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-icon, .delete-icon {
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.edit-icon:hover {
+  color: var(--primary-green);
+  transform: scale(1.1);
+}
+
+.delete-icon:hover {
+  color: var(--delete-red);
+  transform: scale(1.1);
+}
+
+/* FAB Button Styling */
+.fab {
+  position: fixed !important;
+  bottom: 32px !important;
+  right: 32px !important;
+  background: var(--primary-green) !important;
+  color: var(--darker-background) !important;
+  padding: 0 24px !important;
+  height: 56px !important;
+  border-radius: 28px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(105, 240, 174, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(105, 240, 174, 0.4) !important;
+}
+
+.fab mat-icon {
+  margin-right: 8px;
+}
+
+/* Delete Confirmation Dialog */
+.delete-dialog {
+  background: var(--darker-background);
+  border-radius: 8px;
+  border: 1px solid var(--border-green);
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delete-dialog-content {
+  padding: 24px;
+  color: var(--text-white);
+}
+
+.delete-dialog-actions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  border-top: 1px solid var(--border-green);
 }
 
 /* Table Animations */
@@ -125,4 +221,15 @@ html, body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-green);
+}
+
+.delete-dialog-container .mat-mdc-dialog-container {
+  background: var(--darker-background);
+  border-radius: 8px;
+  border: 1px solid var(--border-green);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.delete-dialog-container .mat-mdc-dialog-surface {
+  background: transparent;
 }

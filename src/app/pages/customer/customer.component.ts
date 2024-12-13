@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
 import { CustomerService } from '../../services/customer-service.service';
 import { ICustomer } from '../../interfaces/customer';
 import { SearchCriteria } from '../../interfaces/search-criteria';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmationComponent } from '../../components/delete-confirmation/delete-confirmation.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-customer',
@@ -24,7 +28,10 @@ export class CustomerComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private loadingService: LoadingService
   ) {
     this.dataSource = new MatTableDataSource<ICustomer>();
   }
@@ -34,17 +41,17 @@ export class CustomerComponent implements OnInit {
   }
 
   loadCustomers(): void {
-    this.isLoading = true;
+    this.loadingService.show();
     this.customerService.getCustomers().subscribe({
       next: (customers) => {
         this.dataSource.data = customers;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.isLoading = false;
+        this.loadingService.hide();
       },
       error: (error) => {
         this.error = error.message;
-        this.isLoading = false;
+        this.loadingService.hide();
       }
     });
   }
@@ -69,5 +76,38 @@ export class CustomerComponent implements OnInit {
 
   navigateToCreateCustomer(): void {
     this.router.navigate(['/create-customer']);
+  }
+
+  async onDelete(customer: ICustomer): Promise<void> {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      data: { customerName: customer.name },
+      panelClass: 'delete-dialog-container',
+      disableClose: true
+    });
+
+    const result = await dialogRef.afterClosed().toPromise();
+
+    if (result) {
+      this.loadingService.show();
+      try {
+        await this.customerService.deleteCustomer(customer.id);
+        this.snackBar.open('Customer deleted successfully', 'Close', {
+          duration: 3000,
+          panelClass: 'success-snackbar'
+        });
+        this.loadCustomers();
+      } catch (error) {
+        this.snackBar.open('Error deleting customer', 'Close', {
+          duration: 3000,
+          panelClass: 'error-snackbar'
+        });
+      } finally {
+        this.loadingService.hide();
+      }
+    }
+  }
+
+  onEdit(customer: ICustomer): void {
+    this.router.navigate(['/customers', customer.id, 'edit']);
   }
 }

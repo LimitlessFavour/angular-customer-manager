@@ -111,11 +111,48 @@ mat-form-field {
 
 .fab {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
+  bottom: 24px;
+  right: 24px;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 16px;
-  font-size: 16px;
+  padding: 0 24px;
+  height: 56px;
+  background: var(--primary-green);
+  color: var(--text-dark);
+  border-radius: 28px;
+  box-shadow: 0 4px 12px rgba(105, 240, 174, 0.3);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(105, 240, 174, 0.4);
+  background: var(--primary-green-light);
+}
+
+.fab mat-icon {
+  margin-right: 8px;
+}
+
+.fab-text {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .fab {
+    padding: 0;
+    width: 56px;
+    justify-content: center;
+  }
+  
+  .fab-text {
+    display: none;
+  }
+  
+  .fab mat-icon {
+    margin: 0;
+  }
 }

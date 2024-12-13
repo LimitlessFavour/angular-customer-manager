@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { API_CONFIG, DEFAULT_API_CONFIG } from './config/api.config';
+import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { API_CONFIG, DEFAULT_API_CONFIG } from './config/api.config';
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    LoadingIndicatorComponent
   ],
   providers: [
     { provide: API_CONFIG, useValue: DEFAULT_API_CONFIG }

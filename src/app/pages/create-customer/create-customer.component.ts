@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CustomerService } from '../../services/customer-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
     selector: 'app-create-customer',
@@ -28,7 +29,8 @@ export class CreateCustomerComponent implements OnInit {
         private fb: FormBuilder,
         private customerService: CustomerService,
         public router: Router,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private loadingService: LoadingService
     ) {
         this.initForm();
     }
@@ -72,7 +74,7 @@ export class CreateCustomerComponent implements OnInit {
             return;
         }
 
-        this.isSubmitting = true;
+        this.loadingService.show();
         const customerData = this.formatFormData(this.customerForm.value);
 
         this.customerService.createCustomer(customerData).subscribe({
@@ -84,11 +86,13 @@ export class CreateCustomerComponent implements OnInit {
                 this.router.navigate(['/customers']);
             },
             error: (error) => {
-                this.isSubmitting = false;
                 this.snackBar.open(error.message || 'Failed to create customer', 'Close', {
                     duration: 3000,
                     panelClass: ['error-snackbar']
                 });
+            },
+            complete: () => {
+                this.loadingService.hide();
             }
         });
     }
