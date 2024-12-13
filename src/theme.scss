@@ -1,34 +1,54 @@
 @use '@angular/material' as mat;
 
 // Custom palette
-$primary-palette: (
+$primary-green-palette: (
   50: #E8F5E9,
   100: #C8E6C9,
-  500: #69F0AE,  // Our primary green
+  500: #69F0AE,
   700: #388E3C,
   contrast: (
-    50: rgba(0,0,0,0.87),
-    100: rgba(0,0,0,0.87),
-    500: rgba(0,0,0,0.87),
-    700: #ffffff,
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    700: white,
   )
 );
 
-// Create the theme
-$custom-theme: mat.define-dark-theme((
+// Define the palettes
+$my-primary: mat.define-palette($primary-green-palette);
+$my-accent: mat.define-palette(mat.$grey-palette);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object
+$my-theme: mat.define-dark-theme((
   color: (
-    primary: mat.define-palette($primary-palette),
-    accent: mat.define-palette(mat.$grey-palette),
-    warn: mat.define-palette(mat.$red-palette),
-  ),
-  typography: mat.define-typography-config(),
-  density: 0,
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  )
 ));
 
-// Apply the dark theme
-@include mat.all-component-themes($custom-theme);
+// Include theme styles for core and each component used
+@include mat.core();
+@include mat.all-component-themes($my-theme);
 
-// Override Material styles to match our design
+// Custom CSS variables
+:root {
+  --primary-green: #69F0AE;
+  --dark-background: #2c2c2c;
+  --darker-background: #1e1e1e;
+  --text-white: #ffffff;
+  --delete-red: #ff4444;
+  --hover-green: rgba(105, 240, 174, 0.05);
+  --border-green: rgba(105, 240, 174, 0.1);
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --input-background: rgba(255, 255, 255, 0.05);
+  --content-padding: 24px;
+  --grid-gap: 16px;
+  --container-max-width: 1200px;
+}
+
+// Override Material styles
 .mat-mdc-table {
   background: var(--dark-background) !important;
 }
@@ -37,4 +57,4 @@ $custom-theme: mat.define-dark-theme((
 .mat-mdc-form-field-appearance-outline .mdc-notched-outline__notch,
 .mat-mdc-form-field-appearance-outline .mdc-notched-outline__trailing {
   border-color: var(--border-green) !important;
-} 
+}

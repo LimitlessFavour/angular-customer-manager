@@ -1,0 +1,23 @@
+.search-form {
+  display: flex;
+  gap: var(--grid-gap);
+  margin-bottom: 2rem;
+}
+
+mat-form-field {
+  flex: 1;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: var(--border-green);
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-green);
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+  }
+} 

@@ -5,12 +5,13 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../services/customer-service.service';
 import { ICustomer } from '../../interfaces/customer';
+import { SearchCriteria } from '../../interfaces/search-criteria';
 
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.css'],
-  standalone: false
+  standalone: false,
 })
 export class CustomerComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'phone', 'company', 'actions'];
@@ -55,5 +56,18 @@ export class CustomerComponent implements OnInit {
 
   viewCustomerDetails(id: number): void {
     this.router.navigate(['/customers', id]);
+  }
+
+  onSearch(criteria: SearchCriteria): void {
+    this.dataSource.filterPredicate = (data: ICustomer, filter: string) => {
+      const searchTerm = filter.toLowerCase();
+      const fieldValue = String(data[criteria.searchBy as keyof ICustomer]).toLowerCase();
+      return fieldValue.includes(searchTerm);
+    };
+    this.dataSource.filter = criteria.searchTerm.toLowerCase();
+  }
+
+  navigateToCreateCustomer(): void {
+    this.router.navigate(['/create-customer']);
   }
 }

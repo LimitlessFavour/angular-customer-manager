@@ -1,11 +1,7 @@
 <div class="customer-container">
   <div class="header">
     <h1>Customer Management</h1>
-    <mat-form-field appearance="outline">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search customers..." #input>
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+    <app-customer-search (search)="onSearch($event)"></app-customer-search>
   </div>
 
   <div class="table-container" [class.loading]="isLoading">
@@ -58,4 +54,9 @@
       {{ error }}
     </div>
   </div>
+
+  <button mat-fab color="primary" class="fab" (click)="navigateToCreateCustomer()">
+    <mat-icon>add</mat-icon>
+    Customer
+  </button>
 </div>

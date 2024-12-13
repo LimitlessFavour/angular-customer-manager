@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { CustomerDetailsComponent } from './customer-details.component';
 import { CustomerService } from '../../services/customer-service.service';
@@ -84,7 +84,7 @@ describe('CustomerDetailsComponent', () => {
     });
 
     it('should handle error state', () => {
-        customerService.getCustomerById.and.returnValue(of(null));
+        customerService.getCustomerById.and.returnValue(of(null as any));
         component.ngOnInit();
         fixture.detectChanges();
         expect(component.error).toBeDefined();
