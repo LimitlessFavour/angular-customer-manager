@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { API_CONFIG, DEFAULT_API_CONFIG } from './config/api.config';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     ReactiveFormsModule
   ],
   providers: [
-    provideClientHydration(withEventReplay()),
-    provideAnimationsAsync()
+    { provide: API_CONFIG, useValue: DEFAULT_API_CONFIG }
   ],
   bootstrap: [AppComponent]
 })
