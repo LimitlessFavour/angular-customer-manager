@@ -4,6 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { API_CONFIG, DEFAULT_API_CONFIG } from './config/api.config';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideClientHydration(withEventReplay()),
     provideHttpClient(),
-    { provide: API_CONFIG, useValue: DEFAULT_API_CONFIG }
+    { provide: API_CONFIG, useValue: DEFAULT_API_CONFIG }, provideAnimationsAsync()
   ]
 };

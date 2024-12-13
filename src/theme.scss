@@ -1,0 +1,40 @@
+@use '@angular/material' as mat;
+
+// Custom palette
+$primary-palette: (
+  50: #E8F5E9,
+  100: #C8E6C9,
+  500: #69F0AE,  // Our primary green
+  700: #388E3C,
+  contrast: (
+    50: rgba(0,0,0,0.87),
+    100: rgba(0,0,0,0.87),
+    500: rgba(0,0,0,0.87),
+    700: #ffffff,
+  )
+);
+
+// Create the theme
+$custom-theme: mat.define-dark-theme((
+  color: (
+    primary: mat.define-palette($primary-palette),
+    accent: mat.define-palette(mat.$grey-palette),
+    warn: mat.define-palette(mat.$red-palette),
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Apply the dark theme
+@include mat.all-component-themes($custom-theme);
+
+// Override Material styles to match our design
+.mat-mdc-table {
+  background: var(--dark-background) !important;
+}
+
+.mat-mdc-form-field-appearance-outline .mdc-notched-outline__leading,
+.mat-mdc-form-field-appearance-outline .mdc-notched-outline__notch,
+.mat-mdc-form-field-appearance-outline .mdc-notched-outline__trailing {
+  border-color: var(--border-green) !important;
+} 

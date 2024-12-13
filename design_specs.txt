@@ -1,0 +1,164 @@
+I'll create a comprehensive style guide for the dark theme customer management interface:
+
+```text:style_guide.txt
+# Dark Theme Customer Management UI Style Guide
+
+## Color Palette
+
+### Primary Colors
+--primary-green: #69F0AE        /* Main accent color */
+--dark-background: #2c2c2c      /* Main background */
+--darker-background: #1e1e1e    /* Header/Footer background */
+--text-white: #ffffff           /* Primary text */
+--delete-red: #ff4444          /* Delete/Error actions */
+
+### Opacity Variations
+--hover-green: rgba(105, 240, 174, 0.05)    /* Hover states */
+--border-green: rgba(105, 240, 174, 0.1)    /* Borders */
+--text-muted: rgba(255, 255, 255, 0.7)      /* Secondary text */
+--input-background: rgba(255, 255, 255, 0.05) /* Form field background */
+
+## Typography
+
+### Headers
+- Primary Header: 1.5rem, color: #69F0AE
+- Table Headers: 14px, font-weight: 500, color: #69F0AE
+- Dialog Headers: 1.5rem, color: #69F0AE
+
+### Body Text
+- Primary Text: white
+- Secondary Text: rgba(255, 255, 255, 0.7)
+- Input Text: white
+
+## Spacing System
+- Content Padding: 24px
+- Grid Gap: 16px
+- Button Padding: 16px 24px
+- Form Field Bottom Margin: 16px
+- Container Max Width: 800px (forms), 1000px (tables)
+
+## Component Styles
+
+### Buttons
+1. Primary Action Button (Create/Update)
+```css
+startLine: 102
+endLine: 105
+Reference: src/app/pages/createcustomer/createcustomer.component.css
+```
+
+2. Icon Buttons
+```css
+startLine: 57
+endLine: 63
+Reference: src/app/pages/customer/customer.component.css
+```
+
+### Form Fields
+```css
+startLine: 74
+endLine: 90
+Reference: src/app/pages/edit-customer/edit-customer.component.css
+```
+
+### Tables
+```css
+startLine: 24
+endLine: 48
+Reference: src/app/pages/customer/customer.component.css
+```
+
+### Dialog Headers
+```css
+startLine: 48
+endLine: 61
+Reference: src/app/pages/createcustomer/createcustomer.component.css
+```
+
+## Layout Patterns
+
+### Grid Layout
+- Two-column grid for forms
+- Full-width tables
+- Sticky headers and footers
+- Centered content with max-width constraints
+
+### Container Structure
+```css
+startLine: 42
+endLine: 46
+Reference: src/app/pages/edit-customer/edit-customer.component.css
+```
+
+## Angular Material Components Used
+
+### Core Components
+- MatToolbar
+- MatTable
+- MatDialog
+- MatFormField (appearance="outline")
+- MatInput
+- MatIcon
+- MatButton
+- MatFab
+- MatSnackBar
+- MatSelect
+- MatOption
+- MatSpinner
+
+### Material Theme Configuration
+```typescript
+{
+  "theme": {
+    "primary": "#69F0AE",
+    "accent": "#1e1e1e",
+    "warn": "#ff4444"
+  }
+}
+```
+
+## Animations & Transitions
+- Row hover: transition: background 0.3s ease
+- Button hover effects (Material default)
+- Form field focus animations (Material default)
+
+## Best Practices
+
+1. Form Fields
+- Always use outline appearance
+- Include relevant icons as suffixes
+- Show validation states
+- Use full width within containers
+
+2. Tables
+- Use hover states for rows
+- Consistent column alignment
+- Action buttons aligned right
+- Sticky headers
+
+3. Dialogs
+- Sticky headers and action bars
+- Two-column layout for forms
+- Clear separation of sections
+- Consistent padding and spacing
+
+4. Icons
+- Use Material Icons
+- Consistent color (#69F0AE)
+- Meaningful icon selection
+- Proper sizing and alignment
+
+## Accessibility
+- High contrast between text and background
+- Clear focus states
+- Proper ARIA labels
+- Consistent interactive elements
+
+## Responsive Design
+- Max-width containers
+- Grid layouts that adapt to screen size
+- Sticky elements for better mobile UX
+- Consistent spacing across viewports
+```
+
+This style guide captures all the design patterns and components used in the customer management interface. Would you like me to expand on any particular section?

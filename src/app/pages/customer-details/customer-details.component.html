@@ -1,0 +1,83 @@
+<div class="details-container">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()" aria-label="Go back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Customer Details</h1>
+  </div>
+
+  <mat-progress-spinner *ngIf="isLoading" 
+                       mode="indeterminate" 
+                       diameter="40">
+  </mat-progress-spinner>
+
+  <div class="error-message" *ngIf="error">{{ error }}</div>
+
+  <ng-container *ngIf="customer$ | async as customer">
+    <mat-card class="details-card">
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-section">
+            <h2>Basic Information</h2>
+            <div class="info-row">
+              <span class="label">Name:</span>
+              <span class="value">{{ customer.name }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Username:</span>
+              <span class="value">{{ customer.username }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Email:</span>
+              <span class="value">{{ customer.email }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Phone:</span>
+              <span class="value">{{ customer.phone }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Website:</span>
+              <span class="value">{{ customer.website }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h2>Address</h2>
+            <div class="info-row">
+              <span class="label">Street:</span>
+              <span class="value">{{ customer.address.street }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Suite:</span>
+              <span class="value">{{ customer.address.suite }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">City:</span>
+              <span class="value">{{ customer.address.city }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Zipcode:</span>
+              <span class="value">{{ customer.address.zipcode }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h2>Company</h2>
+            <div class="info-row">
+              <span class="label">Name:</span>
+              <span class="value">{{ customer.company.name }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Catch Phrase:</span>
+              <span class="value">{{ customer.company.catchPhrase }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">BS:</span>
+              <span class="value">{{ customer.company.bs }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div> 

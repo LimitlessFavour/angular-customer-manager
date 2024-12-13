@@ -1,0 +1,79 @@
+.customer-container {
+  padding: var(--content-padding);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  color: var(--primary-green);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.table-container {
+  background: var(--dark-background);
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  min-height: 400px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  background: transparent;
+}
+
+th {
+  color: var(--primary-green) !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+td {
+  color: var(--text-white);
+}
+
+tr.mat-row:hover {
+  background: var(--hover-green);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.error-message {
+  color: var(--delete-red);
+  text-align: center;
+  padding: 1rem;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: var(--border-green);
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-green);
+}
+
+::ng-deep .mat-form-field-label {
+  color: var(--text-muted) !important;
+}
+
+::ng-deep .mat-input-element {
+  color: var(--text-white);
+}
