@@ -1,0 +1,86 @@
+.edit-container {
+  background: var(--dark-background);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  color: var(--primary-green);
+  font-size: 1.75rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.close-button {
+  color: var(--text-muted);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+:host ::ng-deep .mat-mdc-form-field-outline {
+  background: var(--darker-background);
+  border: 2px solid var(--border-green);
+  border-radius: 8px;
+}
+
+:host ::ng-deep .mat-mdc-form-field:hover .mat-mdc-form-field-outline {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 1px var(--primary-green);
+}
+
+:host ::ng-deep .mat-mdc-input-element {
+  color: var(--text-white) !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-label {
+  color: var(--text-muted) !important;
+}
+
+.field-icon {
+  color: var(--primary-green);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-green);
+}
+
+button[type="submit"] {
+  background: var(--primary-green);
+  color: var(--text-dark);
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .edit-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+} 

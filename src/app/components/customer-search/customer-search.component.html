@@ -1,16 +1,17 @@
 <form [formGroup]="searchForm" class="search-form">
-  <mat-form-field appearance="outline">
-    <mat-label>Search term</mat-label>
-    <input matInput formControlName="searchTerm" placeholder="Enter search term...">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Search by</mat-label>
-    <mat-select formControlName="searchBy">
-      <mat-option *ngFor="let field of searchFields" [value]="field.value">
-        {{field.label}}
-      </mat-option>
-    </mat-select>
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput
+           formControlName="searchTerm"
+           placeholder="Search customers"
+           type="text"
+           autocomplete="off">
+    <mat-hint>Start typing to search across all fields</mat-hint>
+    <button mat-icon-button 
+            matSuffix 
+            *ngIf="searchForm.get('searchTerm')?.value"
+            (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
 </form> 

@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, tap, finalize } from 'rxjs/operators';
-import { SearchCriteria } from '../../interfaces/criteria';
-import { LoadingService } from '../../services/loading.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { SearchCriteria } from '../../interfaces/search-criteria';
 
 @Component({
   selector: 'app-customer-search',
@@ -12,7 +11,7 @@ import { LoadingService } from '../../services/loading.service';
 })
 export class CustomerSearchComponent {
   @Output() search = new EventEmitter<SearchCriteria>();
-  
+
   searchForm: FormGroup;
   searchFields = [
     { value: 'name', label: 'Name' },
@@ -21,23 +20,27 @@ export class CustomerSearchComponent {
   ];
 
   constructor(
-    private fb: FormBuilder,
-    private loadingService: LoadingService
+    private fb: FormBuilder
   ) {
     this.searchForm = this.fb.group({
       searchTerm: [''],
       searchBy: ['name']
     });
 
-    this.searchForm.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap(() => this.loadingService.show()),
-      finalize(() => this.loadingService.hide())
-    ).subscribe(value => {
-      if (value.searchTerm) {
-        this.search.emit(value);
-      }
-    });
+    this.searchForm.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(value => {
+        if (value.searchTerm) {
+          this.search.emit(value);
+        }
+      });
+  }
+
+  clearSearch(): void {
+    this.searchForm.patchValue({ searchTerm: '', searchBy: 'name' });
+    this.search.emit({ searchTerm: '', searchBy: 'name' });
   }
 } 

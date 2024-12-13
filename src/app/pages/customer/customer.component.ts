@@ -18,7 +18,7 @@ import { LoadingService } from '../../services/loading.service';
   standalone: false,
 })
 export class CustomerComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'phone', 'company', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'company', 'actions'];
   dataSource: MatTableDataSource<ICustomer>;
   isLoading = true;
   error: string | null = null;
@@ -67,11 +67,12 @@ export class CustomerComponent implements OnInit {
 
   onSearch(criteria: SearchCriteria): void {
     this.dataSource.filterPredicate = (data: ICustomer, filter: string) => {
-      const searchTerm = filter.toLowerCase();
-      const fieldValue = String(data[criteria.searchBy as keyof ICustomer]).toLowerCase();
-      return fieldValue.includes(searchTerm);
+      const searchStr = JSON.parse(filter).searchTerm.toLowerCase();
+      return data.name.toLowerCase().includes(searchStr) ||
+             data.email.toLowerCase().includes(searchStr) ||
+             data.phone.toLowerCase().includes(searchStr);
     };
-    this.dataSource.filter = criteria.searchTerm.toLowerCase();
+    this.dataSource.filter = JSON.stringify(criteria);
   }
 
   navigateToCreateCustomer(): void {
