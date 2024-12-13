@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../../components/delete-confirmation/delete-confirmation.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../../services/loading.service';
+import { CustomerCacheService } from '../../services/customer-cache.service';
 
 @Component({
   selector: 'app-customer',
@@ -28,6 +29,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
 
   constructor(
     private customerService: CustomerService,
+    private customerCacheService: CustomerCacheService,
     private router: Router,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -37,7 +39,16 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.loadCustomers();
+    // Subscribe to cached data first
+    this.customerCacheService.getCustomers().subscribe(customers => {
+      if (customers.length > 0) {
+        this.isLoading = false;
+        this.dataSource.data = customers;
+        this.setupDataSource();
+      } else {
+        this.loadCustomers();
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -48,24 +59,32 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   }
 
   loadCustomers(): void {
-    this.loadingService.show();
-    this.customerService.getCustomers().subscribe({
-      next: (customers) => {
-        this.dataSource.data = customers;
-        if (this.paginator) {
-          this.dataSource.paginator = this.paginator;
-          this.paginator.pageSize = 10;
+    if (this.customerCacheService.shouldRefetch()) {
+      this.isLoading = true;
+      this.customerService.getCustomers().subscribe({
+        next: (customers) => {
+          this.customerCacheService.setCustomers(customers);
+          this.dataSource.data = customers;
+          this.setupDataSource();
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.error = error.message;
+          this.isLoading = false;
         }
-        if (this.sort) {
-          this.dataSource.sort = this.sort;
-        }
-        this.loadingService.hide();
-      },
-      error: (error) => {
-        this.error = error.message;
-        this.loadingService.hide();
-      }
-    });
+      });
+    } else {
+      this.isLoading = false;
+    }
+  }
+
+  private setupDataSource(): void {
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
   }
 
   applyFilter(event: Event): void {
