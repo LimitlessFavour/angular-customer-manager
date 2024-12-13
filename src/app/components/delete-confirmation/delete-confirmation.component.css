@@ -1,0 +1,80 @@
+.delete-dialog-container {
+  background: var(--darker-background);
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 400px;
+  animation: scaleIn 0.2s ease-out;
+  transform-origin: center;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.dialog-header mat-icon {
+  color: var(--delete-red);
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+h2 {
+  color: var(--delete-red);
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.dialog-content {
+  color: var(--text-light);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.warning-text {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.delete-btn {
+  background: var(--delete-red);
+  color: white;
+}
+
+.delete-btn:hover {
+  background: var(--delete-red-light);
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: transparent !important;
+} 

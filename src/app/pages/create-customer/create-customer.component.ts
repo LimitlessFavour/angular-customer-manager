@@ -44,7 +44,7 @@ export class CreateCustomerComponent implements OnInit {
                 username: ['', [Validators.required, Validators.minLength(3)]],
                 email: ['', [Validators.required, Validators.email]],
                 phone: ['', [Validators.required, Validators.pattern(/^\+?[\d\s-]+$/)]],
-                website: ['', [Validators.pattern(/^https?:\/\/.+$/)]],
+                website: ['', Validators.required],  // Simplified validation
             }),
             company: this.fb.group({
                 name: ['', Validators.required],

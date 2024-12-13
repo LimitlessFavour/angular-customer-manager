@@ -1,4 +1,49 @@
-# CustomerManager
+# Customer Management System
+
+A modern, responsive customer management system built with Angular and Material Design.
+
+## Features
+
+### Customer Management
+- Create new customers with detailed information
+- Edit existing customer details
+- Delete customers with confirmation
+- View comprehensive customer information
+
+### Search & Filter
+- Real-time search functionality
+- Search across multiple fields (name, email, phone)
+- Debounced search to optimize performance
+
+### User Interface
+- Dark theme with green accents
+- Responsive design for all screen sizes
+- Animated transitions and interactions
+- Form validation with error messages
+- Loading indicators for async operations
+
+### Data Organization
+- Structured customer data with personal, company, and address information
+- Grid layout for efficient data display
+- Pagination for large datasets
+
+### User Experience
+- Intuitive navigation
+- Instant feedback on actions
+- Smooth animations
+- Error handling with user-friendly messages
+- Confirmation dialogs for destructive actions
+
+## Technical Features
+- Angular Material components
+- Reactive Forms with validation
+- RxJS for state management
+- TypeScript for type safety
+- CSS Grid and Flexbox for layouts
+- CSS Variables for theming
+- Responsive design breakpoints
+- Modular architecture
+- Component-based structure
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
 

@@ -1,0 +1,28 @@
+<div class="delete-dialog-container">
+  <div class="dialog-header">
+    <mat-icon>warning</mat-icon>
+    <h2>Confirm Delete</h2>
+  </div>
+  
+  <div class="dialog-content">
+    Are you sure you want to delete <strong>{{data.customerName}}</strong>?
+  </div>
+  
+  <div class="warning-text">
+    This action cannot be undone.
+  </div>
+  
+  <div class="dialog-actions">
+    <button mat-button 
+            class="cancel-btn" 
+            (click)="dialogRef.close(false)">
+      Cancel
+    </button>
+    <button mat-raised-button 
+            class="delete-btn" 
+            (click)="dialogRef.close(true)">
+      <mat-icon>delete</mat-icon>
+      Delete
+    </button>
+  </div>
+</div> 
