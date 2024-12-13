@@ -16,7 +16,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
                 animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
             ])
         ])
-    ]
+    ],
+    standalone: false,
 })
 export class CreateCustomerComponent implements OnInit {
     customerForm!: FormGroup;
@@ -26,7 +27,7 @@ export class CreateCustomerComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private customerService: CustomerService,
-        private router: Router,
+        public router: Router,
         private snackBar: MatSnackBar
     ) {
         this.initForm();
@@ -115,5 +116,9 @@ export class CreateCustomerComponent implements OnInit {
             return `Invalid ${fieldName.toLowerCase()} format`;
         }
         return '';
+    }
+
+    goBack(): void {
+        this.router.navigate(['/customers']);
     }
 } 
