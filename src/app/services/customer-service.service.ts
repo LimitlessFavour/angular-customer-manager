@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map, retry, timeout } from 'rxjs/operators';
 import { ICustomer } from '../interfaces/customer';
 import { SearchCriteria } from '../interfaces/criteria';
@@ -11,6 +11,8 @@ import { API_CONFIG, ApiConfig } from '../config/api.config';
 })
 export class CustomerService {
   private readonly apiUrl: string;
+  private customersCache = new BehaviorSubject<ICustomer[]>([]);
+
 
   constructor(
     private http: HttpClient,
@@ -24,9 +26,19 @@ export class CustomerService {
    * @returns Observable<ICustomer[]>
    */
   getCustomers(): Observable<ICustomer[]> {
+    // Return cached data if available
+    if (this.customersCache.value.length > 0) {
+      return this.customersCache.asObservable();
+    }
+
     return this.http.get<ICustomer[]>(this.apiUrl).pipe(
       timeout(this.config.timeoutMs),
       retry(this.config.retryAttempts),
+      map(customers => {
+        // Update cache with new data
+        this.customersCache.next(customers);
+        return customers;
+      }),
       catchError(this.handleError)
     );
   }
@@ -132,5 +144,9 @@ export class CustomerService {
     }
 
     return throwError(() => new Error(errorMessage));
+  }
+
+  clearCache() {
+    this.customersCache.next([]);
   }
 }

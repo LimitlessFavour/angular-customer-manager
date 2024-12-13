@@ -36,11 +36,11 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let customer">
           <div class="action-icons">
-            <button mat-icon-button (click)="onEdit(customer); $event.stopPropagation()">
-              <mat-icon class="edit-icon">edit</mat-icon>
+            <button mat-icon-button class="edit-icon" (click)="onEdit(customer); $event.stopPropagation()">
+              <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button (click)="onDelete(customer); $event.stopPropagation()">
-              <mat-icon class="delete-icon">delete</mat-icon>
+            <button mat-icon-button class="delete-icon" (click)="onDelete(customer); $event.stopPropagation()">
+              <mat-icon>delete</mat-icon>
             </button>
           </div>
         </td>

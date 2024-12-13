@@ -6,41 +6,118 @@
     </button>
   </div>
 
-  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="edit-form">
-    <div class="form-grid">
-      <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" placeholder="Enter name">
-        <mat-icon matSuffix class="field-icon">person</mat-icon>
-      </mat-form-field>
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+    <!-- Personal Information -->
+    <div class="form-section">
+      <h2 class="section-title">
+        <mat-icon>person</mat-icon>
+        Personal Information
+      </h2>
+      <div formGroupName="personal" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username" placeholder="Enter username">
-        <mat-icon matSuffix class="field-icon">account_circle</mat-icon>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
+          <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" placeholder="Enter email">
-        <mat-icon matSuffix class="field-icon">email</mat-icon>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Phone</mat-label>
-        <input matInput formControlName="phone" placeholder="Enter phone">
-        <mat-icon matSuffix class="field-icon">phone</mat-icon>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone">
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Gender</mat-label>
-        <mat-select formControlName="gender">
-          <mat-option value="male">Male</mat-option>
-          <mat-option value="female">Female</mat-option>
-          <mat-option value="other">Other</mat-option>
-        </mat-select>
-        <mat-icon matSuffix class="field-icon">wc</mat-icon>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Website</mat-label>
+          <input matInput formControlName="website">
+          <mat-icon matSuffix>language</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Company Information -->
+    <div class="form-section">
+      <h2 class="section-title">
+        <mat-icon>business</mat-icon>
+        Company Information
+      </h2>
+      <div formGroupName="company" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Company Name</mat-label>
+          <input matInput formControlName="name">
+          <mat-icon matSuffix>business</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Catch Phrase</mat-label>
+          <input matInput formControlName="catchPhrase">
+          <mat-icon matSuffix>format_quote</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>BS</mat-label>
+          <input matInput formControlName="bs">
+          <mat-icon matSuffix>work</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Address Information -->
+    <div class="form-section">
+      <h2 class="section-title">
+        <mat-icon>location_on</mat-icon>
+        Address Information
+      </h2>
+      <div formGroupName="address" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Street</mat-label>
+          <input matInput formControlName="street">
+          <mat-icon matSuffix>streetview</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Suite</mat-label>
+          <input matInput formControlName="suite">
+          <mat-icon matSuffix>apartment</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city">
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Zipcode</mat-label>
+          <input matInput formControlName="zipcode">
+          <mat-icon matSuffix>local_post_office</mat-icon>
+        </mat-form-field>
+
+        <div formGroupName="geo" class="geo-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Latitude</mat-label>
+            <input matInput formControlName="lat">
+            <mat-icon matSuffix>explore</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Longitude</mat-label>
+            <input matInput formControlName="lng">
+            <mat-icon matSuffix>explore</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
 
     <div class="form-actions">

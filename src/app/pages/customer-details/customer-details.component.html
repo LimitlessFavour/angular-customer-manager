@@ -1,6 +1,6 @@
 <div class="details-container">
   <div class="header">
-    <button mat-icon-button (click)="goBack()" aria-label="Go back">
+    <button mat-icon-button (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <h1>Customer Details</h1>
@@ -11,63 +11,115 @@
   <ng-container *ngIf="customer$ | async as customer">
     <mat-card class="details-card">
       <mat-card-content>
-        <div class="info-grid">
-          <div class="info-section">
-            <h2>Basic Information</h2>
+        <!-- Personal Information Section -->
+        <div class="section">
+          <div class="section-header">
+            <mat-icon>person</mat-icon>
+            <h2 class="section-title">Personal Information</h2>
+          </div>
+          <div class="info-grid">
             <div class="info-row">
-              <span class="label">Name:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">badge</mat-icon>
+                <span class="label">Name</span>
+              </div>
               <span class="value">{{ customer.name }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Username:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">person_outline</mat-icon>
+                <span class="label">Username</span>
+              </div>
               <span class="value">{{ customer.username }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Email:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">email</mat-icon>
+                <span class="label">Email</span>
+              </div>
               <span class="value">{{ customer.email }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Phone:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">phone</mat-icon>
+                <span class="label">Phone</span>
+              </div>
               <span class="value">{{ customer.phone }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Website:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">language</mat-icon>
+                <span class="label">Website</span>
+              </div>
               <span class="value">{{ customer.website }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="info-section">
-            <h2>Address</h2>
+        <!-- Address Section -->
+        <div class="section">
+          <div class="section-header">
+            <mat-icon>location_on</mat-icon>
+            <h2 class="section-title">Address</h2>
+          </div>
+          <div class="info-grid">
             <div class="info-row">
-              <span class="label">Street:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">signpost</mat-icon>
+                <span class="label">Street</span>
+              </div>
               <span class="value">{{ customer.address.street }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Suite:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">apartment</mat-icon>
+                <span class="label">Suite</span>
+              </div>
               <span class="value">{{ customer.address.suite }}</span>
             </div>
             <div class="info-row">
-              <span class="label">City:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">location_city</mat-icon>
+                <span class="label">City</span>
+              </div>
               <span class="value">{{ customer.address.city }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Zipcode:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">local_post_office</mat-icon>
+                <span class="label">Zipcode</span>
+              </div>
               <span class="value">{{ customer.address.zipcode }}</span>
             </div>
           </div>
+        </div>
 
-          <div class="info-section">
-            <h2>Company</h2>
+        <!-- Company Section -->
+        <div class="section">
+          <div class="section-header">
+            <mat-icon>business</mat-icon>
+            <h2 class="section-title">Company</h2>
+          </div>
+          <div class="info-grid">
             <div class="info-row">
-              <span class="label">Name:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">domain</mat-icon>
+                <span class="label">Name</span>
+              </div>
               <span class="value">{{ customer.company.name }}</span>
             </div>
             <div class="info-row">
-              <span class="label">Catch Phrase:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">catching_pokemon</mat-icon>
+                <span class="label">Catch Phrase</span>
+              </div>
               <span class="value">{{ customer.company.catchPhrase }}</span>
             </div>
             <div class="info-row">
-              <span class="label">BS:</span>
+              <div class="label-container">
+                <mat-icon class="field-icon">trending_up</mat-icon>
+                <span class="label">BS</span>
+              </div>
               <span class="value">{{ customer.company.bs }}</span>
             </div>
           </div>

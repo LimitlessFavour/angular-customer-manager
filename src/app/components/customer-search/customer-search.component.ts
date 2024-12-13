@@ -33,9 +33,7 @@ export class CustomerSearchComponent {
         distinctUntilChanged()
       )
       .subscribe(value => {
-        if (value.searchTerm) {
-          this.search.emit(value);
-        }
+        this.search.emit(value);
       });
   }
 

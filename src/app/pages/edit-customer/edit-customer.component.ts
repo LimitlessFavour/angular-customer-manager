@@ -22,87 +22,111 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]
 })
 export class EditCustomerComponent implements OnInit {
-    customerForm!: FormGroup;
-    customerId!: number;
-    isLoading = false;
+  customerForm!: FormGroup;
+  customerId!: number;
 
-    constructor(
-        private fb: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private customerService: CustomerService,
-        private snackBar: MatSnackBar,
-        private loadingService: LoadingService
-    ) {
-        this.initForm();
-    }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private customerService: CustomerService,
+    private snackBar: MatSnackBar,
+    private loadingService: LoadingService
+  ) {
+    this.initForm();
+  }
 
-    ngOnInit(): void {
-        this.customerId = Number(this.route.snapshot.paramMap.get('id'));
-        this.loadCustomer();
-    }
+  ngOnInit(): void {
+    this.customerId = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadCustomer();
+  }
 
-    private initForm(): void {
-        this.customerForm = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(2)]],
-            username: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.required, Validators.email]],
-            phone: ['', [Validators.required, Validators.pattern(/^\+?[\d\s-]+$/)]],
-            gender: [''],
-            website: ['', [Validators.pattern(/^https?:\/\/.+$/)]]
+  private initForm(): void {
+    this.customerForm = this.fb.group({
+      personal: this.fb.group({
+        name: [''],
+        username: [''],
+        email: [''],
+        phone: [''],
+        website: ['']
+      }),
+      company: this.fb.group({
+        name: [''],
+        catchPhrase: [''],
+        bs: ['']
+      }),
+      address: this.fb.group({
+        street: [''],
+        suite: [''],
+        city: [''],
+        zipcode: [''],
+        geo: this.fb.group({
+          lat: [''],
+          lng: ['']
+        })
+      })
+    });
+  }
+
+  private loadCustomer(): void {
+    this.loadingService.show();
+    this.customerService.getCustomerById(this.customerId).subscribe({
+      next: (customer) => {
+        const formattedData = {
+          personal: {
+            name: customer.name,
+            username: customer.username,
+            email: customer.email,
+            phone: customer.phone,
+            website: customer.website
+          },
+          company: customer.company,
+          address: customer.address
+        };
+        this.customerForm.patchValue(formattedData);
+        this.loadingService.hide();
+      },
+      error: (error) => {
+        this.snackBar.open('Error loading customer', 'Close', {
+          duration: 3000,
+          panelClass: 'error-snackbar'
         });
-    }
+        this.loadingService.hide();
+      }
+    });
+  }
 
-    private loadCustomer(): void {
-        this.loadingService.show();
-        this.customerService.getCustomerById(this.customerId).subscribe({
-            next: (customer) => {
-                this.customerForm.patchValue(customer);
-                this.loadingService.hide();
-            },
-            error: (error) => {
-                this.snackBar.open('Error loading customer', 'Close', {
-                    duration: 3000,
-                    panelClass: 'error-snackbar'
-                });
-                this.loadingService.hide();
-            }
+  onSubmit(): void {
+    this.loadingService.show();
+    const formData = this.customerForm.value;
+    const customerData = {
+      id: this.customerId,
+      ...formData.personal,
+      company: formData.company,
+      address: formData.address
+    };
+
+    this.customerService.updateCustomer(customerData).subscribe({
+      next: () => {
+        this.snackBar.open('Customer updated successfully!', 'Close', {
+          duration: 3000,
+          panelClass: 'success-snackbar'
         });
-    }
-
-    onSubmit(): void {
-        if (this.customerForm.invalid) {
-            this.snackBar.open('Please fix the validation errors', 'Close', {
-                duration: 3000,
-                panelClass: 'error-snackbar'
-            });
-            return;
-        }
-
-        this.loadingService.show();
-        const customerData = this.customerForm.value;
-
-        this.customerService.updateCustomer(customerData).subscribe({
-            next: () => {
-                this.snackBar.open('Customer updated successfully!', 'Close', {
-                    duration: 3000,
-                    panelClass: 'success-snackbar'
-                });
-                this.router.navigate(['/customers']);
-            },
-            error: (error) => {
-                this.snackBar.open(error.message || 'Failed to update customer', 'Close', {
-                    duration: 3000,
-                    panelClass: 'error-snackbar'
-                });
-            },
-            complete: () => {
-                this.loadingService.hide();
-            }
-        });
-    }
-
-    onCancel(): void {
         this.router.navigate(['/customers']);
-    }
+      },
+      error: (error) => {
+        this.snackBar.open(error.message || 'Failed to update customer', 'Close', {
+          duration: 3000,
+          panelClass: 'error-snackbar'
+        });
+      },
+      complete: () => {
+        this.loadingService.hide();
+      }
+    });
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/customers']);
+  }
 } 
